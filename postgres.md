@@ -1,3 +1,4 @@
+### Tables characteristics
 ```sql
 select c.relname table_, a.attname column_, c.relhasindex hasindex, c.relpages pages, c.reltuples rows_,
 	round(s.stanullfrac::numeric, 2) null_percent,
@@ -10,6 +11,6 @@ join pg_attribute a on s.staattnum = a.attnum and c.oid = a.attrelid
 where c.relkind in ('r', 'm')
 	/*r=ordinary table, i=index, S=sequence, v=view, m=materialized view,
 	c=composite type, t=TOAST table, f=foreign table*/
-and c.relname like 'crm_proc_process'
+and c.relname like 'crm_some_table'
 order by s.staattnum
 ```
