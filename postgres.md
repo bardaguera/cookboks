@@ -2,7 +2,10 @@
 ```sql
 select c.relname table_, a.attname column_, t.typname type_, c.relhasindex hasindex, c.relpages pages,
 	c.reltuples rows_, round(s.stanullfrac::numeric, 2) null_percent,
-	round((s.stadistinct/(c.reltuples*(1-s.stanullfrac)))::numeric, 2) dist_percent,
+	case when coalesce(c.reltuples,0) = 0 then 'EMPTY TABLE or STATBUG'
+		else
+			round((s.stadistinct/(c.reltuples*(1-s.stanullfrac)))::numeric, 2)::text 
+	end dist_percent,
 	s.stawidth row_width, /*pc.relpersistence*/
 	'###' "#", round(((c.reltuples*s.stawidth)/(2^10)^2)::numeric, 2) total_width_mb
 from pg_class c
