@@ -33,3 +33,32 @@ end loop;
 END; $$ 
 LANGUAGE plpgsql;
 ```
+
+### Find attribute
+```
+DO $$
+declare
+	table_prefix text;
+	search_string text;
+	temprow RECORD;
+	query text;
+	res boolean;
+begin
+	table_prefix = $table_prefix;
+	search_string = $search_string;
+	FOR temprow IN
+	        (select c.relname, a.attname
+			from pg_class c
+			join pg_attribute a on c.oid = a.attrelid
+			where c.relkind in ('r', 'm') and c.relname like '%'||table_prefix||'%')
+	    loop
+	    	query = 'select exists (select 1 from '|| temprow.relname ||' where ' || temprow.attname ||'::text like ''%'||search_string||'%'')';
+	    	execute query into res;
+	    	if res
+	    	then
+	    		raise notice '%', temprow.relname::text ||'.'|| temprow.attname::text;
+	    	end if;
+	    END LOOP;
+END; $$ 
+LANGUAGE plpgsql;
+```
