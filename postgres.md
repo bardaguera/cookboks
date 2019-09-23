@@ -18,3 +18,18 @@ where c.relkind in ('r', 'm')
 and c.relname like 'crm_some_table'
 order by s.staattnum
 ```
+### Grant permissions
+```
+DO $$
+declare
+	u text[] default array['user'];
+	o text[] default array['someschema.object_name'];
+BEGIN
+for u_i in 1.. array_upper(u, 1) loop
+	for o_i in 1.. array_upper(o,1) loop
+		EXECUTE 'grant select on ' || o[o_i] || ' to ' || u[u_i];
+	end loop;
+end loop;
+END; $$ 
+LANGUAGE plpgsql;
+```
