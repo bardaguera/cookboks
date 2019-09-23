@@ -19,7 +19,7 @@ and c.relname like 'crm_some_table'
 order by s.staattnum
 ```
 ### Grant permissions
-```
+```pl
 DO $$
 declare
 	u text[] default array['user'];
