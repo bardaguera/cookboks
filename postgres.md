@@ -35,7 +35,7 @@ LANGUAGE plpgsql;
 ```
 
 ### Find attribute
-```
+```pl
 DO $$
 declare
 	table_prefix text;
