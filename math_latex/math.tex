@@ -1,0 +1,153 @@
+\documentclass[10pt,a4paper]{scrartcl}
+\usepackage[top=1.0cm, bottom=1.0cm, left=1.0cm, right=1.0cm]{geometry}
+
+\usepackage[utf8]{inputenc}
+\usepackage[english,russian]{babel}
+\usepackage{indentfirst}
+\usepackage{titlesec}
+\usepackage{misccorr}
+	\ifx\pdfoutput\undefined
+	\usepackage{graphicx}
+	\else
+	\usepackage[pdftex]{graphicx}
+	\fi
+\graphicspath{{images/}}
+\usepackage{amsmath}
+
+\titlespacing{\subsubsection}{0pt}{6pt}{0pt}
+
+%1 страница
+\begin{document}
+	\subsubsection*{Преобразования степеней}
+	\begin{minipage}{0.25\linewidth}\noindent 
+		\begin{align*}
+		& a^{-n} = \frac {1}{a^n} \\
+		& \sqrt[n]{a^m} = a ^ {\frac {m}{n}} \\
+		& \sqrt[n]{-a} = -\sqrt[n]{a} \\
+		& 2^{x-3} = \frac {2^3}{2^x} \\
+		& a^0 = 1,\; if a \neq 0
+		\end{align*}
+		\begin{tabular}{lll}
+		$\sqrt{2}$ & $\sqrt{3}$ & $\sqrt{5}$ \\
+		1.4142                    & 1.7320                    & 2.2360                   
+		\end{tabular}
+	\end{minipage}
+	\hfill
+	\begin{minipage}{0.40\linewidth}\noindent 
+		\begin{align*}
+		& \text{Формула сложного радикала:} \\
+		& \sqrt{a\pm \sqrt{b}} = 
+			    \sqrt{\frac{
+			            a + \sqrt{a^2-b}
+			                }
+			                {2}
+			        } \pm 
+			        \sqrt{\frac{
+			            a - \sqrt{a^2-b}
+			                }
+			                {2}
+			        }\\[6pt]
+		& \text{Подкоренное всегда > 0: }\sqrt{ab} = \sqrt{| a |} \cdot \sqrt{|b|} \\[6pt]
+		& \text{Если a\&b }  \in (0, +\infty), \; n\&m \in \mathbb {N}(2, +\infty) \text{:} \\
+		& \big( \sqrt[n]{a}\big)^m = \sqrt[n]{a^m} \qquad \sqrt[m]{\sqrt[n]{a}} = \sqrt[m * n]{a}
+		\end{align*}
+	\end{minipage}
+	\hfill
+	\begin{minipage}{0.25\linewidth}\noindent
+		\includegraphics[width=1\linewidth]{square_and_root}
+	\end{minipage}
+	
+	\subsubsection*{Полиномы}
+	\begin{minipage}{0.3\linewidth}
+		\begin{align*}
+		& ax^2+bx+c = a(x_1 - x_1)(x-x_2) \\
+		& x_1 + x_2 = \frac {-b}{a} \qquad x_1 \cdot x_2 = \frac {c}{a} \\[6pt]
+		& D = b^2 -4ac \\
+		& x_1,_2 = \frac{-b\pm\sqrt{D}}{2a}
+		\end{align*}
+	\end{minipage}
+	\hfill
+	\begin{minipage}{0.7\linewidth}
+
+		\textbf{Теорема Безу для стандартного полинома:}\\
+		Если a - корень, то полином F(x) без остатка делится на (x-a); \\
+		\textbf{1: } (1) корень, если сумма коэфф. == 1; \\
+		\textbf{2: } (-1) корень, если сумма коэфф. при четных и нечетных степенях равны; \\
+		\textbf{3: } Корни полинома $\in\mathbb {Z}$, если старший коээфициент == 1; \\
+					.\qquad В этом случае они -- делители свободного члена. \\
+					.\qquad Значит можно найти делители св. члена, подставить, найти корень,\\
+					.\qquad и разделить многочлен на (x-rdх).
+	\end{minipage}
+
+	\subsubsection*{Логарифмы}
+	\begin{minipage}{0.25\linewidth}\noindent 
+		\begin{align*}
+		& 2^x = 3 \; \Rightarrow \;x = \log_23 \\
+		& \text{ОДЗ для }\log_ab \\
+		& a>0, b>0, a \neq 1
+		\end{align*}
+	\end{minipage}
+	\hfill
+	\begin{minipage}{0.25\linewidth}\noindent 
+	\begin{align*}
+		& \log_ax = \frac{log_nx}{log_na} \\
+		& \log{a^c}b^m = \frac{m}{c} \log_ab \\
+		& \log_ab \pm \log_ac = \log_a{a \; ^{\times} \!\! / \!\! _{\div} \; b}
+		\end{align*}
+	\end{minipage}
+	\begin{minipage}{0.5\linewidth}\noindent
+		\includegraphics[width=1\linewidth]{log_and_exp}
+	\end{minipage}
+	
+	\subsubsection*{Тригонометрия}
+	\begin{minipage}{0.40\linewidth}
+	\includegraphics[width=1\linewidth]{unit_circle} \\
+	\end{minipage}
+	\hfill
+	\begin{minipage}{0.6\linewidth}
+		\begin{align*}
+		& 180^\circ = 3.14 Rad \\
+		& sin^2\alpha + cos^2\alpha = 1 \\
+		&sin \alpha + sin \beta = 2 sin \frac{\alpha + \beta}{2} \cdot cos \frac{\alpha - \beta}{2}\\
+		&sin(\alpha \pm \beta) = sin \alpha \cdot cos \beta \pm sin \beta \cdot cos \alpha \\
+		&cos(\alpha \pm \beta) = sin \alpha \cdot sin \beta \pm cos \alpha \cdot cos \beta \\		
+		&sin \alpha \cdot sin \beta = \frac{1}{2}(cos(\alpha - \beta) - cos(\alpha + \beta))
+		\end{align*}
+		\begin{minipage}{1\linewidth}
+		\begin{align*}
+		cos 2 \alpha = cos^2 \alpha - \sin^2 \alpha = 2cos^2x-1& \\
+		=1-2sin^2&
+		\end{align*}
+		\end{minipage}
+	\end{minipage}
+	\includegraphics[width=0.59\linewidth]{arc_func}
+	\hfill
+	\includegraphics[width=0.39\linewidth]{sin_stratch}
+
+\newpage
+\subsubsection*{Пределы и дифференцирование}
+	\begin{minipage}{0.3\linewidth}			
+		\begin{align*}
+		x' = 1 \\
+		c' = 0 \\
+		(c \cdot u)' &= c \cdot u' \\
+		(sin x)' &= cos x\\
+		(cos x)' &= -sin x \\
+		\end{align*}
+	\end{minipage}
+	\begin{minipage}{0.7\linewidth}
+		\begin{align*}
+		&(u + v)' = u' + v' \\
+		&(u \cdot v)' = u'v + uv' \\
+		&g(f(x))' = g'(f(x)) \cdot f'(x)\\
+		&(x^n)' = n \cdot x^{n-1} \\
+		&(\sqrt{x})' = \frac {1}{2 \sqrt{x}}	\\
+		&\bigg(\frac{1}{x}\bigg)' = \frac{-1}{x^2} \\
+		&\bigg(\frac{u}{v}\bigg)' = \frac{u'v  - uv'}{v^2}
+		\end{align*}
+	\end{minipage}
+	\\
+	\begin{minipage}{1\linewidth}
+	\includegraphics[width=1\linewidth]{log_and_exp_numbers}
+	\end{minipage}
+\end{document}
