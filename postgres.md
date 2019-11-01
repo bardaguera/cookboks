@@ -3,6 +3,7 @@
 select c.relname table_, a.attname column_, t.typname type_, c.relhasindex hasindex, c.relpages pages,
 	c.reltuples rows_, round(s.stanullfrac::numeric, 2) null_percent,
 	case when coalesce(c.reltuples,0) = 0 then 'EMPTY TABLE or STATBUG'
+		when s.stanullfrac = 1 then 'FULL'
 		else
 			round((s.stadistinct/(c.reltuples*(1-s.stanullfrac)))::numeric, 2)::text 
 	end dist_percent,
@@ -16,6 +17,7 @@ where c.relkind in ('r', 'm')
 	/*r=ordinary table, i=index, S=sequence, v=view, m=materialized view,
 	c=composite type, t=TOAST table, f=foreign table*/
 and c.relname like 'crm_some_table'
+and c.relnamespace = (select oid from pg_namespace where nspname = 'some_schema')
 order by s.staattnum
 ```
 ### Grant permissions
