@@ -130,24 +130,84 @@
 		\begin{align*}
 		x' = 1 \\
 		c' = 0 \\
-		(c \cdot u)' &= c \cdot u' \\
+		(c \cdot u)' &= c \cdot u'\\
 		(sin x)' &= cos x\\
 		(cos x)' &= -sin x \\
+		x'(y_0) &= \frac{1}{y'(x_0)}\\
+		\\
+		\\
 		\end{align*}
 	\end{minipage}
-	\begin{minipage}{0.7\linewidth}
+	\begin{minipage}{0.4\linewidth}
 		\begin{align*}
-		&(u + v)' = u' + v' \\
-		&(u \cdot v)' = u'v + uv' \\
-		&g(f(x))' = g'(f(x)) \cdot f'(x)\\
-		&(x^n)' = n \cdot x^{n-1} \\
-		&(\sqrt{x})' = \frac {1}{2 \sqrt{x}}	\\
-		&\bigg(\frac{1}{x}\bigg)' = \frac{-1}{x^2} \\
-		&\bigg(\frac{u}{v}\bigg)' = \frac{u'v  - uv'}{v^2}
+		(u + v)' &= u' + v' \\
+		(u \cdot v)' &= u'v + uv' \\
+		g\big(f(x)\big)' &= g'\big(f(x)\big) \cdot f'(x); \quad \big(u(v)\big)' = u'(v)\cdot v'\\
+		(x^n)' &= n \cdot x^{n-1} \\
+		(\sqrt{x})' &= \frac {1}{2 \sqrt{x}}	\\
+		\bigg(\frac{1}{x}\bigg)' &= \frac{-1}{x^2} \\
+		\bigg(\frac{u}{v}\bigg)' &= \frac{u'v  - uv'}{v^2} 
 		\end{align*}
 	\end{minipage}
-	\\
-	\begin{minipage}{1\linewidth}
-	\includegraphics[width=1\linewidth]{log_and_exp_numbers}
+	\begin{minipage}{0.3\linewidth}
+		\begin{align*}
+		\\
+		\\
+		\\
+		\\
+		\\
+		ln (u) &= \frac{u'}{u}\\
+		\\
+		ln (x) &= \frac{1}{x}\\
+		\end{align*}
 	\end{minipage}
+
+\begin{figure}[h]
+\begin{center}
+\begin{picture}(500,300)
+ \put(16,16){
+  \includegraphics[width=500\unitlength]{log_and_exp_numbers}}
+ \put(380,295){
+  \makebox(0,0)[lb]{$\text{Касательная к графику}$}}
+ \put(380,280){
+  \makebox(0,0)[lb]{$y=f(a)+f'(a)(x-a)$}}
+\end{picture}
+\end{center}
+\end{figure}
+\subsubsection*{Пределы}
+\begin{minipage}{0.5\linewidth}
+	\begin{align*}
+	\lim_{x\to a} \big(f(x)+g(x)\big) &= \lim_{x\to a} f(x) + \lim_{x\to a} g(x) \\
+	\\
+	\lim_{x\to a} \big(f(x)\cdot g(x)\big) &= \lim_{x\to a} f(x) \cdot \lim_{x\to a} g(x) \\
+	\\
+	\lim_{x\to a} \frac{f(x)}{g(x)} &= \frac{\lim\limits_{x\to a} f(x)}{\lim\limits_{x\to a} g(x)} \\
+	\lim\limits_{x\to a} f(x) = 0 \quad &\& \quad f(x) \neq 0 \quad \Rightarrow \quad  \lim\limits_{x\to a} \frac{1}{f(x)} = \infty \\
+	\end{align*}
+\end{minipage}
+\begin{minipage}{0.5\linewidth}
+	\begin{align*}
+	\left.
+  	\begin{array}{ccc}
+  		\begin{aligned}
+	\lim\limits_{x\to \infty} \Bigl(1 \,+ \,  &\frac{1}{x}\Bigr)^x &=  \\
+	\\
+	\lim\limits_{x\to 0} \bigl(1 \, + \, & x\bigr)^\frac{1}{x  } &= \\
+	\\
+	\lim\limits_{x\to 0} \bigl(1 \, + \, & a(x)\bigr)^\frac{1}{a(x)  }  &= \\
+	\text{при} \thickspace & a(x)^{-e} = 0  \\
+		\end{aligned}
+	\end{array}
+	\right\}  \scalebox{1.2}{$ \mathrm{e} $} 
+	\end{align*}
+\end{minipage}
+\subsubsection*{Два милиционера}
+	\begin{align*}
+	g_1(x) \leqslant f(x) \leqslant g_2(x) \quad &\& \quad \lim\limits_{x\to a} g_1(x) = \lim\limits_{x\to a} g_2(x) = l  \quad \Rightarrow \quad \lim\limits_{x\to a} f(x) =l \\
+	\end{align*}
+\subsubsection*{Теоремы в практике}
+	\begin{align*}
+	\text{Произведение ограниченной функиции на бесконечно малую} \quad \Rightarrow \quad \lim  & \rightarrow 0 \\
+	\lim\limits_{x\to \infty} \frac{sinx}{x} & = 0
+	\end{align*}
 \end{document}
