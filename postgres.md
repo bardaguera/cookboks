@@ -66,7 +66,7 @@ LANGUAGE plpgsql;
 ```
 
 ### Get attr names
-'''sql
+```sql
 select attname, attnum, split_part(str, '|', 2) caption
 from
 	(
@@ -86,4 +86,4 @@ from
 	) lang
 where lang.str like '%ru-RU%'
 order by attnum
-'''
+```
