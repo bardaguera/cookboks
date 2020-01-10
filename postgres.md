@@ -64,3 +64,26 @@ begin
 END; $$ 
 LANGUAGE plpgsql;
 ```
+
+### Get attr names
+'''sql
+select attname, attnum, split_part(str, '|', 2) caption
+from
+	(
+	select attname, attnum, regexp_split_to_table(caption, ',') str
+	from (
+		select c.oid, a.attname, a.attnum,
+		unnest(regexp_split_to_array(col_description(c.oid, a.attnum),';')) caption
+		from pg_class c
+		join pg_attribute a on a.attrelid = c.oid
+		where c.relkind in ('r', 'm')
+			/*r=ordinary table, i=index, S=sequence, v=view, m=materialized view,
+			c=composite type, t=TOAST table, f=foreign table*/
+		and c.relname like 'Lead'
+		and c.relnamespace = (select oid from pg_namespace where nspname = 'public')
+		) t
+	where caption like 'TS.EntitySchemaColumn.Caption%'
+	) lang
+where lang.str like '%ru-RU%'
+order by attnum
+'''
