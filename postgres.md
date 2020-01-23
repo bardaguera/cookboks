@@ -22,17 +22,24 @@ order by s.staattnum
 ```
 ### Grant permissions
 ```pl
-DO $$
+DO $f$
 declare
-	u text[] default array['user'];
-	o text[] default array['someschema.object_name'];
-BEGIN
+	u text[] default array['report'];
+	schema_ text = 'someschema';
+	o text[]
+		default array['someschema.sometable'];
+begin
+	/* --get all tables
+	select array_agg(schema_||'.'||table_name::text)
+	into o
+	from information_schema.tables t
+	where table_schema = schema_;*/
 for u_i in 1.. array_upper(u, 1) loop
 	for o_i in 1.. array_upper(o,1) loop
 		EXECUTE 'grant select on ' || o[o_i] || ' to ' || u[u_i];
 	end loop;
 end loop;
-END; $$ 
+END; $f$ 
 LANGUAGE plpgsql;
 ```
 
@@ -63,6 +70,33 @@ begin
 	    END LOOP;
 END; $$ 
 LANGUAGE plpgsql;
+```
+
+### Get schema via json
+```sql
+select json_build_object(
+	'schema', max(ns.nspname),
+	'tables', json_agg(
+				json_build_object(
+					'table_name', pc.relname,
+					'table_id', a.table_id::int,
+					'attrs', a.vals::jsonb)))
+from pg_class pc
+join pg_namespace ns on ns.oid = pc.relnamespace
+join (select attrs.table_id, json_agg(row_to_json(attrs))::jsonb-'table_id' vals
+		from (select pa.attrelid table_id,
+					pa.attnum col_num,
+					pa.attname col_name,
+					t.typname col_type,
+					moe.modified_on_attr_exists,
+					col_description(pa.attrelid, pa.attnum) col_desc
+				from pg_attribute pa
+				join (select pa.attrelid,
+						case when pa.attname is not null then True else False end modified_on_attr_exists
+					from pg_attribute pa where pa.attname = 'ModifiedOn') moe on pa.attrelid = moe.attrelid
+			join pg_type t on pa.atttypid = t.oid) attrs
+		group by attrs.table_id		
+		) a on pc.oid = a.table_id
 ```
 
 ### Get attr names
