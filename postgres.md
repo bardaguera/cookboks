@@ -49,21 +49,30 @@ DO $$
 declare
 	table_prefix text;
 	search_string text;
+	exact_match boolean;
 	temprow RECORD;
 	query text;
 	res boolean;
 begin
 	table_prefix = $table_prefix;
 	search_string = $search_string;
+	exact_match =  $exact_match;
 	FOR temprow IN
 	        (select c.relname, a.attname
 			from pg_class c
 			join pg_attribute a on c.oid = a.attrelid
-			where c.relkind in ('r', 'm') and c.relname like '%'||table_prefix||'%')
+			where c.relkind in ('r', 'm') and a.attisdropped = False
+			and c.relname like '%'||table_prefix||'%'
+			and c.relnamespace = (select oid from pg_namespace where nspname = ''''||$schema_name||'''')
+			order by c.relpages*c.reltuples)
 	    loop
-	    	query = 'select exists (select 1 from '|| temprow.relname ||' where ' || temprow.attname ||'::text like ''%'||search_string||'%'')';
+	    	query = 'select exists (select 1 from '|| temprow.relname ||' where ' || temprow.attname ||'::text';
+	    	if exact_match = true
+	    		then query = query||' =''' ||search_string||''')';
+	    		else query = query||' like ''%'||search_string||'%'')';
+			    end if;	
 	    	execute query into res;
-	    	if res
+	    	if res = true
 	    	then
 	    		raise notice '%', temprow.relname::text ||'.'|| temprow.attname::text;
 	    	end if;
