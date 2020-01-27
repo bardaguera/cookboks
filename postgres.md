@@ -81,7 +81,7 @@ END; $$
 LANGUAGE plpgsql;
 ```
 
-### Get schema via json
+### Get schema as json
 ```sql
 select json_build_object(
 	'schema', max(ns.nspname),
@@ -92,18 +92,24 @@ select json_build_object(
 					'attrs', a.vals::jsonb)))
 from pg_class pc
 join pg_namespace ns on ns.oid = pc.relnamespace
-join (select attrs.table_id, json_agg(row_to_json(attrs))::jsonb-'table_id' vals
+join (select attrs.table_id, json_agg(row_to_json(attrs)::jsonb-'table_id') vals
 		from (select pa.attrelid table_id,
 					pa.attnum col_num,
 					pa.attname col_name,
 					t.typname col_type,
 					moe.modified_on_attr_exists,
-					col_description(pa.attrelid, pa.attnum) col_desc
+					case when i.indisprimary is null then false else true end is_primary,
+					not pa.attnotnull col_nullable
 				from pg_attribute pa
 				join (select pa.attrelid,
 						case when pa.attname is not null then True else False end modified_on_attr_exists
 					from pg_attribute pa where pa.attname = 'ModifiedOn') moe on pa.attrelid = moe.attrelid
-			join pg_type t on pa.atttypid = t.oid) attrs
+			join pg_type t on pa.atttypid = t.oid
+			left join pg_index i on pa.attrelid = i.indrelid
+										and pa.attnum = ANY(i.indkey)
+										and i.indisprimary is true
+			where pc.attisdropped = false and pa.attnum > 0 --pa.attrelid = 2527151
+			) attrs
 		group by attrs.table_id		
 		) a on pc.oid = a.table_id
 ```
