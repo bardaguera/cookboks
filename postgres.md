@@ -108,7 +108,7 @@ join (select attrs.table_id, json_agg(row_to_json(attrs)::jsonb-'table_id') vals
 			left join pg_index i on pa.attrelid = i.indrelid
 										and pa.attnum = ANY(i.indkey)
 										and i.indisprimary is true
-			where pc.attisdropped = false and pa.attnum > 0 --pa.attrelid = 2527151
+			where pa.attisdropped = false and pa.attnum > 0 --pa.attrelid = 2527151
 			) attrs
 		group by attrs.table_id		
 		) a on pc.oid = a.table_id
