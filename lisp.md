@@ -1,3 +1,10 @@
+## Добавить в конец листа
+```lisp
+(setf l '(1 2 3))
+(append l '(4))
+--> (1 2 3 4)
+```
+
 ## Пять раз напечатать Hello World
 ```lisp
 (defun fn (n)
@@ -35,6 +42,17 @@
 
 (defun w(n)
     (format t "~,4f~%" (fn n 9)))
+```
+## Фибоначчи
+```lisp
+(defun f(i)
+    (if (= 1 i)
+        0
+        (if (= 2 i)
+            1
+            (+ (f(1- i)) (f(- i 2))))))
+
+(format t "~d" (f(read)))
 ```
 ## Чтение в 2 параметра -- n и лист -- из stdin
 ```lisp
